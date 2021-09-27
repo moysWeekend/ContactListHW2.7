@@ -17,10 +17,28 @@ struct Person {
     }
     
     static func getPersonInfo() -> [Person] {
-        [
-            Person(name: "John", surname: "Rock", email: "aaa@person.com", phoneNumber: "89991112233"),
-            Person(name: "Ivan", surname: "Ivanov", email: "bbb@person.com", phoneNumber: "88882221144")
-        ]
+       
+        var persons: [Person] = []
+        
+        let names = DataManager.shared.names.shuffled()
+        let surnames = DataManager.shared.surnames.shuffled()
+        let phoneNumbers = DataManager.shared.phoneNumbers.shuffled()
+        let emails = DataManager.shared.emails.shuffled()
+        
+        let iterationCount = min(names.count, surnames.count, emails.count, phoneNumbers.count)
+        
+        for index in 0..<iterationCount {
+            let person = Person(
+                name: names[index],
+                surname: surnames[index],
+                email: emails[index],
+                phoneNumber: phoneNumbers[index]
+            )
+            
+            persons.append(person)
+        }
+        
+        return persons
     }
     
 }
